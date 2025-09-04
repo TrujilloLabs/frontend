@@ -15,7 +15,7 @@ export default function Splash() {
   }, [router]);
 
   return (
-    <View style={styles.container}>
+    <View className="bg-background" style={styles.container}>
       {/* Logo */}
       <Image
         source={require("../assets/logo/logo.png")} // 👈 coloca tu logo en assets/
@@ -24,7 +24,9 @@ export default function Splash() {
       />
 
       {/* Nombre de la tienda */}
-      <Text style={styles.title}>Pizza</Text>
+      <Text className="text-primary font-work-blackItalic" style={styles.title}>
+        Pizzas Don Romolo
+      </Text>
 
       {/* Loader */}
       <ActivityIndicator size="large" color="#000" style={{ marginTop: 20 }} />
@@ -36,9 +38,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "center"
     // backgroundColor: "#fff"
-    backgroundColor: "#f1f0de"
+    // backgroundColor: "background"
   },
   logoImage: {
     width: 250, // ajusta tamaño del logo
@@ -46,10 +48,10 @@ const styles = StyleSheet.create({
     marginBottom: -30
   },
   title: {
-    fontSize: 32,
+    fontSize: 32
     // fontWeight: "bold",
-    color: "#e74423",
-    fontFamily: "WorkSans-BlackItalic"
+    // color: "#e74423",
+    // fontFamily: "WorkSans-BlackItalic"
     // color: "#000"
   }
 });

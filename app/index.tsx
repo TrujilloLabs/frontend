@@ -6,10 +6,13 @@ const App = () => {
   return (
     <SafeAreaView className="flex-1 items-center justify-center bg-white">
       <View className="mt-5 mx-2.5">
-        <Text className="text-3xl text-blue-500 font-work-black">
+        <Text className="text-3xl text-secondary-200 font-work-black">
           Hola mundo!
         </Text>
-        <Text className="text-3xl" style={{ fontFamily: "WorkSans-Black" }}>
+        <Text
+          className="text-3xl text-tertiary"
+          style={{ fontFamily: "WorkSans-Black" }}
+        >
           Diego Trujillo
         </Text>
       </View>
