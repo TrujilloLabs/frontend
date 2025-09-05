@@ -1,14 +1,16 @@
+import Headers from "@/components/Headers";
 import { Link } from "expo-router";
 import React from "react";
 import {
   FlatList,
-  Image,
   ScrollView,
+  StyleSheet,
   Text,
   TouchableOpacity,
   View
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import PromoCarousel from "../../promotions/PromoCarousel";
 
 const categories = [
   { id: "1", name: "Farmacia", icon: "💊" },
@@ -30,28 +32,21 @@ const promos = [
     id: "p3",
     image: "https://picsum.photos/400/200?3",
     title: "Descuentos Express"
+  },
+  {
+    id: "p4",
+    image: "https://picsum.photos/400/200?4",
+    title: "Descuentos Express"
   }
 ];
 
 export default function HomeScreen() {
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <SafeAreaView className="flex-1 bg-background">
       <ScrollView showsVerticalScrollIndicator={false}>
-        {/* Dirección */}
-        <View className="px-4 pt-2">
-          <Text className="text-gray-600 text-sm">La Estrella</Text>
-          <Text className="text-lg font-bold">CL 75 SUR # 46 A - 14</Text>
-        </View>
-
-        {/* Buscador */}
-        <View className="px-4 mt-3">
-          <View className="bg-gray-100 rounded-xl p-3">
-            <Text className="text-gray-500">🔍 ¿Qué quieres hoy?</Text>
-          </View>
-        </View>
-
+        <Headers />
         {/* Carrusel Promos */}
-        <ScrollView
+        {/* <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
           className="mt-4 pl-4"
@@ -65,6 +60,12 @@ export default function HomeScreen() {
               <Text className="mt-2 font-semibold">{promo.title}</Text>
             </View>
           ))}
+        </ScrollView> */}
+
+        <ScrollView contentContainerStyle={styles.scrollContent}>
+          <PromoCarousel promos={promos} />
+
+          {/* Aquí vendrían más secciones debajo */}
         </ScrollView>
 
         {/* Publicidad */}
@@ -78,7 +79,6 @@ export default function HomeScreen() {
             <Text className="text-white text-center font-bold">Lo quiero</Text>
           </TouchableOpacity>
         </View>
-
         {/* Categorías principales */}
         <View className="px-4 mt-6 flex-row justify-between">
           <TouchableOpacity className="flex-1 bg-red-100 rounded-2xl p-6 mr-2 items-center">
@@ -90,7 +90,6 @@ export default function HomeScreen() {
             <Text className="mt-2 font-semibold">Mercado</Text>
           </TouchableOpacity>
         </View>
-
         {/* Carrusel de categorías */}
         <View className="mt-6">
           <FlatList
@@ -110,7 +109,23 @@ export default function HomeScreen() {
             )}
           />
         </View>
+
+        <ScrollView contentContainerStyle={styles.scrollContent}>
+          <PromoCarousel promos={promos} />
+
+          {/* Aquí vendrían más secciones debajo */}
+        </ScrollView>
       </ScrollView>
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#f1f0de"
+  },
+  scrollContent: {
+    paddingBottom: 100
+  }
+});

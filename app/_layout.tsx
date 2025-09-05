@@ -1,4 +1,5 @@
 import { useFonts } from "expo-font";
+import * as NavigationBar from "expo-navigation-bar";
 import { SplashScreen, Stack } from "expo-router";
 import React from "react";
 import "./global.css";
@@ -35,6 +36,13 @@ const RootLayout = () => {
     if (fontsLoaded) {
       SplashScreen.hideAsync();
     }
+
+    // Color de fondo de la barra
+    // Fondo con tu color corporativo
+    // NavigationBar.setBackgroundColorAsync("#e74423");
+
+    // Color de los botones (icónicos de Android)
+    NavigationBar.setButtonStyleAsync("dark"); // 👈 "light" = blanco, "dark" = negro
   }, [fontsLoaded, error]);
 
   if (!fontsLoaded && !error) {

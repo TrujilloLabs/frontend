@@ -7,7 +7,23 @@ export default function TabsLayout() {
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: "#e74423",
-        tabBarInactiveTintColor: "gray"
+        tabBarInactiveTintColor: "gray",
+        tabBarStyle: {
+          position: "absolute",
+          bottom: 5,
+          left: 20,
+          right: 20,
+          elevation: 5,
+          backgroundColor: "#fff",
+          borderRadius: 20, // 🔥 Bordes redondeados
+          height: 100,
+          //   shadowColor: "#e74423",
+          shadowColor: "#000",
+          shadowOpacity: 0.1,
+          shadowOffset: { width: 0, height: 5 },
+          shadowRadius: 5
+        }
+        // tabBarShowLabel: false  // si quieres solo iconos
       }}
     >
       <Tabs.Screen
