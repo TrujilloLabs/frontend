@@ -1,4 +1,7 @@
+import AdBanner from "@/components/adBanner/AdBanner";
+import MainCategories from "@/components/category/MainCategories";
 import Headers from "@/components/Headers";
+import PromotionsSection from "@/components/promotionsSection/PromotionsSection";
 import { Link } from "expo-router";
 import React from "react";
 import {
@@ -10,7 +13,7 @@ import {
   View
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import PromoCarousel from "../../promotions/PromoCarousel";
+import PromoCarousel from "../../../components/promotionsSection/PromoCarousel";
 
 const categories = [
   { id: "1", name: "Farmacia", icon: "💊" },
@@ -42,34 +45,17 @@ const promos = [
 
 export default function HomeScreen() {
   return (
-    <SafeAreaView className="flex-1 bg-background">
+    <SafeAreaView className="flex-1 bg-background mx-4">
       <ScrollView showsVerticalScrollIndicator={false}>
         <Headers />
-        {/* Carrusel Promos */}
-        {/* <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          className="mt-4 pl-4"
-        >
-          {promos.map((promo) => (
-            <View key={promo.id} className="mr-4">
-              <Image
-                source={{ uri: promo.image }}
-                className="w-80 h-40 rounded-2xl"
-              />
-              <Text className="mt-2 font-semibold">{promo.title}</Text>
-            </View>
-          ))}
-        </ScrollView> */}
 
-        <ScrollView contentContainerStyle={styles.scrollContent}>
-          <PromoCarousel promos={promos} />
+        <PromotionsSection />
+        <AdBanner />
 
-          {/* Aquí vendrían más secciones debajo */}
-        </ScrollView>
+        <MainCategories />
 
         {/* Publicidad */}
-        <View className="px-4 mt-6 bg-yellow-100 rounded-2xl p-4">
+        {/* <View className="px-4 mt-6 bg-yellow-100 rounded-2xl p-4">
           <Text className="text-lg font-bold">ChatGPT Plus</Text>
           <Text className="text-orange-500 font-semibold">
             Gratis por 6 meses
@@ -78,18 +64,8 @@ export default function HomeScreen() {
           <TouchableOpacity className="mt-3 bg-orange-500 py-2 px-4 rounded-xl">
             <Text className="text-white text-center font-bold">Lo quiero</Text>
           </TouchableOpacity>
-        </View>
-        {/* Categorías principales */}
-        <View className="px-4 mt-6 flex-row justify-between">
-          <TouchableOpacity className="flex-1 bg-red-100 rounded-2xl p-6 mr-2 items-center">
-            <Text className="text-4xl">🍔</Text>
-            <Text className="mt-2 font-semibold">Restaurantes</Text>
-          </TouchableOpacity>
-          <TouchableOpacity className="flex-1 bg-green-100 rounded-2xl p-6 ml-2 items-center">
-            <Text className="text-4xl">🛒</Text>
-            <Text className="mt-2 font-semibold">Mercado</Text>
-          </TouchableOpacity>
-        </View>
+        </View> */}
+
         {/* Carrusel de categorías */}
         <View className="mt-6">
           <FlatList
@@ -109,11 +85,39 @@ export default function HomeScreen() {
             )}
           />
         </View>
-
+        {/* Carusel de promociones  */}
         <ScrollView contentContainerStyle={styles.scrollContent}>
           <PromoCarousel promos={promos} />
+        </ScrollView>
 
-          {/* Aquí vendrían más secciones debajo */}
+        {/* Carusel de promociones  */}
+        <ScrollView contentContainerStyle={styles.scrollContent}>
+          <PromoCarousel promos={promos} />
+        </ScrollView>
+
+        {/* Carusel de promociones  */}
+        <ScrollView contentContainerStyle={styles.scrollContent}>
+          <PromoCarousel promos={promos} />
+        </ScrollView>
+
+        {/* Carusel de promociones  */}
+        <ScrollView contentContainerStyle={styles.scrollContent}>
+          <PromoCarousel promos={promos} />
+        </ScrollView>
+
+        {/* Carusel de promociones  */}
+        <ScrollView contentContainerStyle={styles.scrollContent}>
+          <PromoCarousel promos={promos} />
+        </ScrollView>
+
+        {/* Carusel de promociones  */}
+        <ScrollView contentContainerStyle={styles.scrollContent}>
+          <PromoCarousel promos={promos} />
+        </ScrollView>
+
+        {/* Carusel de promociones  */}
+        <ScrollView contentContainerStyle={styles.scrollContent}>
+          <PromoCarousel promos={promos} />
         </ScrollView>
       </ScrollView>
     </SafeAreaView>
@@ -126,6 +130,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#f1f0de"
   },
   scrollContent: {
-    paddingBottom: 100
+    paddingBottom: 80
   }
 });
