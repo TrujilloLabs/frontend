@@ -1,5 +1,6 @@
 import { Category } from "@/domain/Category";
-import { useState } from "react";
+import { getCategories } from "@/services/productService";
+import { useEffect, useState } from "react";
 
 // import { Text, View } from "react-native";
 
@@ -8,7 +9,21 @@ const useCategory = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  return;
+  useEffect(() => {
+    const fetchCategory = async () => {
+      try {
+        const result = await getCategories();
+        setCategory(result);
+      } catch (error) {
+        setError("Error al cargar productos");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCategory();
+  }, []);
+
+  return { category, loading, error };
 };
 
 export default useCategory;
