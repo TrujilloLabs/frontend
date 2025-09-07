@@ -3,8 +3,15 @@ import CategoriesCarousel from "@/components/category/CategoriesCarusel";
 import MainCategories from "@/components/category/MainCategories";
 import Headers from "@/components/Headers";
 import PromotionsSection from "@/components/promotionsSection/PromotionsSection";
+import useCategory from "@/hooks/useCategory.hook";
 import React from "react";
-import { ScrollView, StyleSheet } from "react-native";
+import {
+  ActivityIndicator,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import PromoCarousel from "../../../components/promotionsSection/PromoCarousel";
 
@@ -37,15 +44,26 @@ const promos = [
 ];
 
 export default function HomeScreen() {
-  // const { category, loading, error } = useCategory();
+  const { category, loading, error } = useCategory();
 
-  // if (loading) return <ActivityIndicator size="large" color="#00ff00" />;
-  // if (error)
-  //   return (
-  //     <Text className="flex-1 items-center justify-center bg-white">
-  //       {error}
-  //     </Text>
-  //   );
+  if (loading)
+    return (
+      <View className="flex-1 items-center justify-center bg-white">
+        <ActivityIndicator size="large" color="#e74423" />
+      </View>
+    );
+
+  if (error)
+    return (
+      <View className="flex-1 items-center justify-center p-4 bg-white">
+        {/* Contenedor de notificación para el error */}
+        <View className="bg-red-500 rounded-xl p-6 shadow-md items-center justify-center">
+          <Text className="text-white text-lg font-semibold text-center">
+            {error}
+          </Text>
+        </View>
+      </View>
+    );
 
   return (
     <SafeAreaView className="flex-1 bg-background mx-4">
@@ -56,7 +74,7 @@ export default function HomeScreen() {
         {/* categorias  */}
         <MainCategories />
         {/* Carrusel de categorías */}
-        <CategoriesCarousel categories={categories} />
+        <CategoriesCarousel categories={category} />
 
         {/* componente de boton de ejemplo */}
         {/* <CustomButton

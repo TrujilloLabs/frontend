@@ -7,7 +7,7 @@ export default function OffersScreen() {
   if (loading)
     return (
       <View className="flex-1 items-center justify-center bg-white">
-        <ActivityIndicator size="large" color="#00ff00" />
+        <ActivityIndicator size="large" color="#e74423" />
       </View>
     );
 

@@ -5,7 +5,7 @@ import { FlatList, Text, TouchableOpacity, View } from "react-native";
 type Category = {
   id: string | number;
   name: string;
-  icon: string;
+  icon?: string;
 };
 
 type Props = {

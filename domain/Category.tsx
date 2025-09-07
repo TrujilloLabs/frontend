@@ -14,4 +14,5 @@ export interface Category {
 
   createdAt: Date;
   updatedAt: Date;
+  icon?: string;
 }
