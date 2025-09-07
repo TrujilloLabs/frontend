@@ -37,12 +37,15 @@ const promos = [
 ];
 
 export default function HomeScreen() {
-  // const { products, loading, error } = useProducts();
+  // const { category, loading, error } = useCategory();
 
-  // if (loading) return <ActivityIndicator size="large" color="#e74423" />;
-  // if (error) return <Text>{error}</Text>;
-
-  // console.log("Productos tt", products);
+  // if (loading) return <ActivityIndicator size="large" color="#00ff00" />;
+  // if (error)
+  //   return (
+  //     <Text className="flex-1 items-center justify-center bg-white">
+  //       {error}
+  //     </Text>
+  //   );
 
   return (
     <SafeAreaView className="flex-1 bg-background mx-4">

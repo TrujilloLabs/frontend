@@ -4,12 +4,23 @@ import { ActivityIndicator, FlatList, Image, Text, View } from "react-native";
 export default function OffersScreen() {
   const { products, loading, error } = useProducts();
 
-  if (loading) return <ActivityIndicator size="large" color="#e74423" />;
+  if (loading)
+    return (
+      <View className="flex-1 items-center justify-center bg-white">
+        <ActivityIndicator size="large" color="#00ff00" />
+      </View>
+    );
+
   if (error)
     return (
-      <Text className="flex-1 items-center justify-center bg-white">
-        {error}
-      </Text>
+      <View className="flex-1 items-center justify-center p-4 bg-white">
+        {/* Contenedor de notificación para el error */}
+        <View className="bg-red-500 rounded-xl p-6 shadow-md items-center justify-center">
+          <Text className="text-white text-lg font-semibold text-center">
+            {error}
+          </Text>
+        </View>
+      </View>
     );
 
   return (
@@ -32,3 +43,24 @@ export default function OffersScreen() {
     </View>
   );
 }
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     justifyContent: "center"
+//   },
+//   horizontal: {
+//     flexDirection: "row",
+//     justifyContent: "space-around",
+//     padding: 10
+//   }
+// });
+// // (
+//     <SafeAreaView style={[styles.container, styles.horizontal]}>
+//       <ActivityIndicator />
+//       {/* <ActivityIndicator size="large" />
+//       <ActivityIndicator size="small" color="#0000ff" /> */}
+//       <ActivityIndicator size="large" color="#00ff00" />
+//     </SafeAreaView>
+//   );
+//
