@@ -74,7 +74,7 @@ export default function HomeScreen() {
         {/* categorias  */}
         <MainCategories />
         {/* Carrusel de categorías */}
-        <CategoriesCarousel categories={category} />
+        <CategoriesCarousel categories={categories} />
 
         {/* componente de boton de ejemplo */}
         {/* <CustomButton

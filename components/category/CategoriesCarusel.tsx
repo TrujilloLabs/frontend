@@ -6,6 +6,7 @@ type Category = {
   id: string | number;
   name: string;
   icon?: string;
+  imageUrl?: string;
 };
 
 type Props = {
@@ -31,6 +32,10 @@ const CategoriesCarousel: React.FC<Props> = ({ categories }) => {
             asChild
           >
             <TouchableOpacity className="bg-gray-100 rounded-2xl p-4 mr-3 items-center w-24">
+              {/* <Image
+                source={{ uri: item.icon }}
+                className="w-16 h-16 rounded-full"
+              /> */}
               <Text className="text-2xl">{item.icon}</Text>
               <Text className="mt-2 text-sm font-medium">{item.name}</Text>
             </TouchableOpacity>
