@@ -37,6 +37,13 @@ const promos = [
 ];
 
 export default function HomeScreen() {
+  // const { products, loading, error } = useProducts();
+
+  // if (loading) return <ActivityIndicator size="large" color="#e74423" />;
+  // if (error) return <Text>{error}</Text>;
+
+  // console.log("Productos tt", products);
+
   return (
     <SafeAreaView className="flex-1 bg-background mx-4">
       <ScrollView showsVerticalScrollIndicator={false}>
