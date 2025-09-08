@@ -28,6 +28,8 @@ export const useFetchCategoryData = (): FetchDataResult => {
   // 🚨 Mueve la función fetchData aquí para que sea accesible
   const fetchData = async () => {
     try {
+      setError(error);
+
       if (typeof categoryId !== "string" && typeof subcategoryId !== "string") {
         console.error("No se proporcionó un ID de categoría o subcategoría.");
         setError("No se proporcionó un ID de categoría o subcategoría.");
@@ -64,7 +66,6 @@ export const useFetchCategoryData = (): FetchDataResult => {
 
   const refreshCategory = async () => {
     setIsRefreshing(true);
-    // 🚨 Ahora fetchData es visible y puede ser llamada
     await fetchData();
   };
 

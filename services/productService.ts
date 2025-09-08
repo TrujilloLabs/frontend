@@ -4,8 +4,8 @@ import { Category } from "../domain/Category";
 import { IProduct } from "../domain/Product";
 import { Product } from '../interfaces/index';
 
-// const http: HttpAdapter = new AxiosAdapter("http://192.168.2.3:5000/api/v1");
-const http: HttpAdapter = new AxiosAdapter("http://localhost:5000/api/v1");
+const http: HttpAdapter = new AxiosAdapter("http://192.168.2.3:5000/api/v1");
+// const http: HttpAdapter = new AxiosAdapter("http://localhost:5000/api/v1");
 // 
 export const getProducts = async (): Promise<IProduct[]> => {
     const data = await http.get<IProduct[]>("/product");
@@ -26,7 +26,7 @@ export const getProductsByCategory = async (categoryId?: string, subcategoryId?:
         return data;
 
     } catch (error) {
-        console.error("Error fetching getProductsByCategory:", error);
+        // console.error("Error fetching getProductsByCategory:", error);
         return [];
     }
 };

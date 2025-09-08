@@ -40,8 +40,8 @@ const CategoryDetailsScreen = () => {
         <ActivityIndicator size="large" color="#e74423" />
       </View>
     );
-
-  if (error)
+  console.log("Error", error);
+  if (error) {
     return (
       <View className="flex-1 items-center justify-center p-4 bg-white">
         <View className="bg-red-500 rounded-xl p-6 shadow-md items-center justify-center">
@@ -57,6 +57,37 @@ const CategoryDetailsScreen = () => {
         </View>
       </View>
     );
+  }
+
+  if (products.length === 0) {
+    return (
+      <View style={styles.container}>
+        <View className="flex-row items-center px-4 h-28 bg-white border-b border-gray-200">
+          <TouchableOpacity onPress={() => router.back()}>
+            <Ionicons name="arrow-back" size={28} color="black" />
+          </TouchableOpacity>
+
+          <Text className="ml-4 font-bold text-lg">Categoría</Text>
+
+          <View className="flex-1" />
+
+          <Ionicons name="search" size={28} color="black" />
+        </View>
+
+        <View className="flex-1 justify-center items-center">
+          <Text className="text-gray-500 text-lg">
+            No hay productos para mostrar.
+          </Text>
+          <TouchableOpacity
+            onPress={refreshCategory}
+            className="bg-red-700 px-6 py-3 rounded-lg"
+          >
+            <Text className="text-white font-bold text-center">Reintentar</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  }
 
   const groupedProducts: Record<string, Product[]> = products.reduce(
     (acc, product) => {
@@ -72,13 +103,25 @@ const CategoryDetailsScreen = () => {
 
   return (
     <View style={styles.container}>
-      <View className="flex-row items-center px-4 py-3 bg-white border-b border-gray-200">
+      {/* <View className="flex-row items-center h-28 px-4 py-3 bg-white border-b border-gray-200">
         <TouchableOpacity onPress={() => router.back()}>
           <Ionicons name="arrow-back" size={24} color="black" />
         </TouchableOpacity>
         <Text className="ml-4 font-bold text-lg">Categoría</Text>
         <View className="flex-1" />
         <Ionicons name="search" size={24} color="black" />
+      </View> */}
+
+      <View className="flex-row items-center mt-4 px-4 h-28 bg-white border-b border-gray-200">
+        <TouchableOpacity onPress={() => router.back()}>
+          <Ionicons name="arrow-back" size={28} color="black" />
+        </TouchableOpacity>
+
+        <Text className="ml-4 font-bold text-lg">Categoría</Text>
+
+        <View className="flex-1" />
+
+        <Ionicons name="search" size={28} color="black" />
       </View>
 
       <ScrollView>
