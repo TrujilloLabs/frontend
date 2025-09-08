@@ -41,7 +41,11 @@ type Props = {
 const MainCategories: React.FC<Props> = ({ categories }) => {
   const handlePress = (category: Category) => {
     // 🚨 Navega a la pantalla de subcategorías y productos
-    router.push("/category/Category");
+    // router.push("/category/Idex");
+    router.push({
+      pathname: "/category/Idex",
+      params: { categoryId: category.id }
+    });
   };
   return (
     <View className="px-4 mt-6 flex-row flex-wrap gap-x-4">
