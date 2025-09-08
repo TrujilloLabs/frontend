@@ -1,30 +1,22 @@
-// src/screens/CategoryDetailsScreen.tsx
-
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React from "react";
 import {
   ActivityIndicator,
-  ScrollView,
+  FlatList,
   StyleSheet,
   Text,
   TouchableOpacity,
   View
 } from "react-native";
 
-// 🚨 Importa tu custom hook
-import { useFetchCategoryData } from "@/hooks/useFetchCategoryData";
-
 import ProductCard from "@/components/ProductCard";
 import SubcategoryCard from "@/components/SubcategoryCard";
-
-// Asegúrate de que tus interfaces están en esta ruta
-import RefreshableList from "@/components/Refres";
+import { useFetchCategoryData } from "@/hooks/useFetchCategoryData";
 import { Product } from "../../interfaces/index";
 
 const CategoryDetailsScreen = () => {
   const router = useRouter();
-  // 🚨 Usa el hook para obtener los datos y el estado
   const {
     subcategories,
     products,
@@ -33,61 +25,6 @@ const CategoryDetailsScreen = () => {
     refreshCategory,
     isRefreshing
   } = useFetchCategoryData();
-
-  if (loading)
-    return (
-      <View className="flex-1 items-center justify-center bg-white">
-        <ActivityIndicator size="large" color="#e74423" />
-      </View>
-    );
-  console.log("Error", error);
-  if (error) {
-    return (
-      <View className="flex-1 items-center justify-center p-4 bg-white">
-        <View className="bg-red-500 rounded-xl p-6 shadow-md items-center justify-center">
-          <Text className="text-white text-lg font-semibold text-center mb-4">
-            {error}
-          </Text>
-          <TouchableOpacity
-            onPress={refreshCategory}
-            className="bg-red-700 px-6 py-3 rounded-lg"
-          >
-            <Text className="text-white font-bold text-center">Reintentar</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
-  }
-
-  if (products.length === 0) {
-    return (
-      <View style={styles.container}>
-        <View className="flex-row items-center px-4 h-28 bg-white border-b border-gray-200">
-          <TouchableOpacity onPress={() => router.back()}>
-            <Ionicons name="arrow-back" size={28} color="black" />
-          </TouchableOpacity>
-
-          <Text className="ml-4 font-bold text-lg">Categoría</Text>
-
-          <View className="flex-1" />
-
-          <Ionicons name="search" size={28} color="black" />
-        </View>
-
-        <View className="flex-1 justify-center items-center">
-          <Text className="text-gray-500 text-lg">
-            No hay productos para mostrar.
-          </Text>
-          <TouchableOpacity
-            onPress={refreshCategory}
-            className="bg-red-700 px-6 py-3 rounded-lg"
-          >
-            <Text className="text-white font-bold text-center">Reintentar</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
-  }
 
   const groupedProducts: Record<string, Product[]> = products.reduce(
     (acc, product) => {
@@ -101,61 +38,113 @@ const CategoryDetailsScreen = () => {
     {} as Record<string, Product[]>
   );
 
+  const renderProductSection = ({ item: subcatName }: { item: string }) => {
+    return (
+      <View style={styles.productSectionContainer}>
+        <View style={styles.sectionHeader}>
+          <Text style={styles.sectionTitle}>{subcatName}</Text>
+          <TouchableOpacity>
+            <Text style={styles.seeMoreText}>Ver más</Text>
+          </TouchableOpacity>
+        </View>
+        <FlatList
+          data={groupedProducts[subcatName]}
+          keyExtractor={(item) => item.id}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          renderItem={({ item }) => <ProductCard product={item} />}
+        />
+      </View>
+    );
+  };
+
+  const renderHeader = () => {
+    // Si no hay subcategorías, no renderices el carrusel
+    if (subcategories.length === 0) return null;
+
+    return (
+      <FlatList
+        data={subcategories}
+        keyExtractor={(item) => item.id}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.subcatListContainer}
+        renderItem={({ item }) => (
+          <SubcategoryCard id={item.id} name={item.name} icon={item.icon} />
+        )}
+      />
+    );
+  };
+
+  if (loading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#e74423" />
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.errorContainer}>
+        <View style={styles.errorBox}>
+          <Text style={styles.errorText}>{error}</Text>
+          <TouchableOpacity
+            onPress={refreshCategory}
+            style={styles.refreshButton}
+          >
+            <Text style={styles.refreshButtonText}>Reintentar</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  }
+
+  // Si no hay productos, mostramos un mensaje
+  if (products.length === 0) {
+    return (
+      <View style={styles.container}>
+        <View style={styles.topHeader}>
+          <TouchableOpacity onPress={() => router.back()}>
+            <Ionicons name="arrow-back" size={28} color="black" />
+          </TouchableOpacity>
+          <Text style={styles.headerTitle}>Categoría</Text>
+          <View style={{ flex: 1 }} />
+          <Ionicons name="search" size={28} color="black" />
+        </View>
+        <View style={styles.emptyContainer}>
+          <Text style={styles.emptyText}>No hay productos para mostrar.</Text>
+          <TouchableOpacity
+            onPress={refreshCategory}
+            style={styles.refreshButton}
+          >
+            <Text style={styles.refreshButtonText}>Reintentar</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
-      {/* <View className="flex-row items-center h-28 px-4 py-3 bg-white border-b border-gray-200">
-        <TouchableOpacity onPress={() => router.back()}>
-          <Ionicons name="arrow-back" size={24} color="black" />
-        </TouchableOpacity>
-        <Text className="ml-4 font-bold text-lg">Categoría</Text>
-        <View className="flex-1" />
-        <Ionicons name="search" size={24} color="black" />
-      </View> */}
-
-      <View className="flex-row items-center mt-4 px-4 h-28 bg-white border-b border-gray-200">
+      <View style={styles.topHeader}>
         <TouchableOpacity onPress={() => router.back()}>
           <Ionicons name="arrow-back" size={28} color="black" />
         </TouchableOpacity>
-
-        <Text className="ml-4 font-bold text-lg">Categoría</Text>
-
-        <View className="flex-1" />
-
+        <Text style={styles.headerTitle}>Categoría</Text>
+        <View style={{ flex: 1 }} />
         <Ionicons name="search" size={28} color="black" />
       </View>
 
-      <ScrollView>
-        <RefreshableList
-          data={subcategories}
-          keyExtractor={(item) => item.id}
-          refreshing={isRefreshing}
-          onRefresh={refreshCategory}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.subcatListContainer}
-          renderItem={({ item }) => (
-            <SubcategoryCard id={item.id} name={item.name} icon={item.icon} />
-          )}
-        />
-        {Object.keys(groupedProducts).map((subcatName) => (
-          <View key={subcatName} className="mt-6 px-4">
-            <View className="flex-row justify-between items-center mb-4">
-              <Text className="font-bold text-xl">{subcatName}</Text>
-              <TouchableOpacity>
-                <Text className="text-sm text-gray-500">Ver más</Text>
-              </TouchableOpacity>
-            </View>
-            <RefreshableList
-              data={groupedProducts[subcatName]}
-              keyExtractor={(item) => item.id}
-              refreshing={isRefreshing}
-              onRefresh={refreshCategory}
-              numColumns={2}
-              renderItem={({ item }) => <ProductCard product={item} />}
-            />
-          </View>
-        ))}
-      </ScrollView>
+      <FlatList
+        data={Object.keys(groupedProducts)}
+        keyExtractor={(item) => item}
+        renderItem={renderProductSection}
+        ListHeaderComponent={renderHeader}
+        onRefresh={refreshCategory}
+        refreshing={isRefreshing}
+        showsVerticalScrollIndicator={false}
+      />
     </View>
   );
 };
@@ -170,9 +159,88 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center"
   },
+  errorContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+    backgroundColor: "white"
+  },
+  errorBox: {
+    backgroundColor: "#ef4444",
+    borderRadius: 12,
+    padding: 24,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    alignItems: "center"
+  },
+  errorText: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "600",
+    textAlign: "center",
+    marginBottom: 16
+  },
+  refreshButton: {
+    backgroundColor: "#dc2626",
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+    borderRadius: 8
+  },
+  refreshButtonText: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  topHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 16,
+    paddingTop: 50,
+    paddingBottom: 16,
+    backgroundColor: "white",
+    borderBottomWidth: 1,
+    borderColor: "#e5e7eb"
+  },
+  headerTitle: {
+    marginLeft: 16,
+    fontWeight: "bold",
+    fontSize: 18
+  },
   subcatListContainer: {
     paddingHorizontal: 16,
     paddingVertical: 10
+  },
+  productSectionContainer: {
+    marginTop: 24,
+    paddingHorizontal: 16
+  },
+  sectionHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 16
+  },
+  sectionTitle: {
+    fontWeight: "bold",
+    fontSize: 20
+  },
+  seeMoreText: {
+    fontSize: 14,
+    color: "#6b7280"
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  emptyText: {
+    color: "#888",
+    fontSize: 16,
+    marginBottom: 20
   }
 });
 
