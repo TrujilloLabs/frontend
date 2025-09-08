@@ -1,5 +1,8 @@
-import { useLocalSearchParams, useRouter } from "expo-router";
-import React, { useEffect, useState } from "react";
+// src/screens/CategoryDetailsScreen.tsx
+
+import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+import React from "react";
 import {
   ActivityIndicator,
   FlatList,
@@ -10,69 +13,32 @@ import {
   View
 } from "react-native";
 
-import { Ionicons } from "@expo/vector-icons";
+// 🚨 Importa tu custom hook
+import { useFetchCategoryData } from "@/hooks/useFetchCategoryData";
 
-// Importa tus servicios
-import { getSubcategoriesByCategory } from "@/services/categoryService";
-import { getProductsByCategory } from "@/services/productService";
-
-// Importa los componentes de las tarjetas
 import ProductCard from "@/components/ProductCard";
 import SubcategoryCard from "@/components/SubcategoryCard";
 
 // Asegúrate de que tus interfaces están en esta ruta
-import { Product, Subcategory } from "../../interfaces/index";
+import { Product } from "../../interfaces/index";
 
 const CategoryDetailsScreen = () => {
-  const { categoryId, subcategoryId } = useLocalSearchParams();
   const router = useRouter();
-
-  const [subcategories, setSubcategories] = useState<Subcategory[]>([]);
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (
-          typeof categoryId !== "string" &&
-          typeof subcategoryId !== "string"
-        ) {
-          setLoading(false);
-          console.error("No se proporcionó un ID de categoría o subcategoría.");
-          return;
-        }
-
-        const subcatData = await getSubcategoriesByCategory(
-          categoryId as string
-        );
-
-        // 🚨 Pasar el subcategoryId a la petición si existe
-        const productsData = await getProductsByCategory(
-          categoryId as string,
-          subcategoryId as string
-        );
-
-        const subcategoriesWithIcons = subcatData.map((subcat) => ({
-          ...subcat,
-          icon: "💊"
-        }));
-
-        setSubcategories(subcategoriesWithIcons);
-        setProducts(productsData);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, [categoryId, subcategoryId]);
+  // 🚨 Usa el hook para obtener los datos y el estado
+  const { subcategories, products, loading, error } = useFetchCategoryData();
 
   if (loading) {
     return (
       <View style={styles.loadingContainer}>
         <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.loadingContainer}>
+        <Text style={{ color: "red" }}>{error}</Text>
       </View>
     );
   }
@@ -111,7 +77,6 @@ const CategoryDetailsScreen = () => {
             <SubcategoryCard id={item.id} name={item.name} icon={item.icon} />
           )}
         />
-
         {Object.keys(groupedProducts).map((subcatName) => (
           <View key={subcatName} className="mt-6 px-4">
             <View className="flex-row justify-between items-center mb-4">
