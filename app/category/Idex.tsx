@@ -5,7 +5,6 @@ import { useRouter } from "expo-router";
 import React from "react";
 import {
   ActivityIndicator,
-  FlatList,
   ScrollView,
   StyleSheet,
   Text,
@@ -20,28 +19,44 @@ import ProductCard from "@/components/ProductCard";
 import SubcategoryCard from "@/components/SubcategoryCard";
 
 // Asegúrate de que tus interfaces están en esta ruta
+import RefreshableList from "@/components/Refres";
 import { Product } from "../../interfaces/index";
 
 const CategoryDetailsScreen = () => {
   const router = useRouter();
   // 🚨 Usa el hook para obtener los datos y el estado
-  const { subcategories, products, loading, error } = useFetchCategoryData();
+  const {
+    subcategories,
+    products,
+    loading,
+    error,
+    refreshCategory,
+    isRefreshing
+  } = useFetchCategoryData();
 
-  if (loading) {
+  if (loading)
     return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#0000ff" />
+      <View className="flex-1 items-center justify-center bg-white">
+        <ActivityIndicator size="large" color="#e74423" />
       </View>
     );
-  }
 
-  if (error) {
+  if (error)
     return (
-      <View style={styles.loadingContainer}>
-        <Text style={{ color: "red" }}>{error}</Text>
+      <View className="flex-1 items-center justify-center p-4 bg-white">
+        <View className="bg-red-500 rounded-xl p-6 shadow-md items-center justify-center">
+          <Text className="text-white text-lg font-semibold text-center mb-4">
+            {error}
+          </Text>
+          <TouchableOpacity
+            onPress={refreshCategory}
+            className="bg-red-700 px-6 py-3 rounded-lg"
+          >
+            <Text className="text-white font-bold text-center">Reintentar</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
-  }
 
   const groupedProducts: Record<string, Product[]> = products.reduce(
     (acc, product) => {
@@ -67,9 +82,11 @@ const CategoryDetailsScreen = () => {
       </View>
 
       <ScrollView>
-        <FlatList
+        <RefreshableList
           data={subcategories}
           keyExtractor={(item) => item.id}
+          refreshing={isRefreshing}
+          onRefresh={refreshCategory}
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.subcatListContainer}
@@ -85,9 +102,11 @@ const CategoryDetailsScreen = () => {
                 <Text className="text-sm text-gray-500">Ver más</Text>
               </TouchableOpacity>
             </View>
-            <FlatList
+            <RefreshableList
               data={groupedProducts[subcatName]}
               keyExtractor={(item) => item.id}
+              refreshing={isRefreshing}
+              onRefresh={refreshCategory}
               numColumns={2}
               renderItem={({ item }) => <ProductCard product={item} />}
             />
