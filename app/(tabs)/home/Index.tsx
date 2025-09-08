@@ -4,12 +4,14 @@ import MainCategories from "@/components/category/MainCategories";
 import Headers from "@/components/Headers";
 import PromotionsSection from "@/components/promotionsSection/PromotionsSection";
 import useCategory from "@/hooks/useCategory.hook";
+import { useProducts } from "@/hooks/useProducts.hook";
 import React from "react";
 import {
   ActivityIndicator,
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -45,6 +47,7 @@ const promos = [
 
 export default function HomeScreen() {
   const { category, loading, error } = useCategory();
+  const { refreshProducts } = useProducts();
 
   if (loading)
     return (
@@ -56,11 +59,16 @@ export default function HomeScreen() {
   if (error)
     return (
       <View className="flex-1 items-center justify-center p-4 bg-white">
-        {/* Contenedor de notificación para el error */}
         <View className="bg-red-500 rounded-xl p-6 shadow-md items-center justify-center">
-          <Text className="text-white text-lg font-semibold text-center">
+          <Text className="text-white text-lg font-semibold text-center mb-4">
             {error}
           </Text>
+          <TouchableOpacity
+            onPress={refreshProducts}
+            className="bg-red-700 px-6 py-3 rounded-lg"
+          >
+            <Text className="text-white font-bold text-center">Reintentar</Text>
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -72,7 +80,8 @@ export default function HomeScreen() {
         <PromotionsSection />
         <AdBanner />
         {/* categorias  */}
-        <MainCategories />
+        {/* <MainCategories /> */}
+        <MainCategories categories={category} />
         {/* Carrusel de categorías */}
         <CategoriesCarousel categories={categories} />
 

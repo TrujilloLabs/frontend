@@ -33,7 +33,7 @@ const CategoriesCarousel: React.FC<Props> = ({ categories }) => {
           >
             <TouchableOpacity className="bg-gray-100 rounded-2xl p-4 mr-3 items-center w-24">
               {/* <Image
-                source={{ uri: item.icon }}
+                source={{ uri: item.imageUrl }}
                 className="w-16 h-16 rounded-full"
               /> */}
               <Text className="text-2xl">{item.icon}</Text>
