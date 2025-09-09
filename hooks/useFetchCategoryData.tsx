@@ -46,7 +46,7 @@ export const useFetchCategoryData = (): FetchDataResult => {
 
       const subcategoriesWithIcons = subcatData.map((subcat) => ({
         ...subcat,
-        icon: "💊"
+        icon: "✨"
       }));
 
       setSubcategories(subcategoriesWithIcons);

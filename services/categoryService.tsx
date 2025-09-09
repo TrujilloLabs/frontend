@@ -13,7 +13,7 @@ export const getSubcategoriesByCategory = async (
     const data = await http.get<Subcategory[]>(
       `/categories/${categoriId}/subcategories`
     );
-    // console.log("data servicios subcategories 👀(●'◡'●)👀", data);
+    console.log("data servicios subcategories 👀(●'◡'●)👀", data);
     return data;
   } catch (error) {
     // console.error("Error fetching subcategories:", error);

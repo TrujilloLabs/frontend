@@ -47,6 +47,7 @@ export interface Subcategory {
   isVisible: boolean;
   store: string;
   icon?: string;
+  imageUrl?: string;
   createdAt?: string;
   updatedAt?: string;
   deletedAt?: string | null;

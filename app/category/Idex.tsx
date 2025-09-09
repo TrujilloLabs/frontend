@@ -61,7 +61,7 @@ const CategoryDetailsScreen = () => {
         horizontal
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => (
-          <SubcategoryCard id={item.id} name={item.name} icon={item.icon} />
+          <SubcategoryCard id={item.id} name={item.name} icon={item.imageUrl} />
         )}
       />
     </View>
