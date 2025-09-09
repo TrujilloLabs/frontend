@@ -20,7 +20,7 @@ const SubcategoryCard: React.FC<Props> = ({ id, name, icon, imageUrl }) => {
       params: { subcategoryId: id }
     });
   };
-  console.log("Imagwen", icon);
+  // console.log("Imagwen", icon);
   return (
     <View>
       <TouchableOpacity
