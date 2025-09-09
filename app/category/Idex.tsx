@@ -46,7 +46,7 @@ const CategoryDetailsScreen = () => {
             onPress={refreshCategory}
             style={styles.refreshButton}
           >
-            <Text style={styles.refreshButtonText}>Reintentar</Text>
+            <Text style={styles.refreshButtonText}>Reintentarrr</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -79,7 +79,7 @@ const CategoryDetailsScreen = () => {
             <TouchableOpacity onPress={() => router.back()}>
               <Ionicons name="arrow-back" size={28} color="black" />
             </TouchableOpacity>
-            <Text style={styles.headerTitle}>Categoría</Text>
+            <Text style={styles.headerTitle}>Subcategoría</Text>
             <View style={{ flex: 1 }} />
             <Ionicons name="search" size={28} color="black" />
           </View>
@@ -99,7 +99,7 @@ const CategoryDetailsScreen = () => {
           <TouchableOpacity onPress={() => router.back()}>
             <Ionicons name="arrow-back" size={28} color="black" />
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>Categoría</Text>
+          <Text style={styles.headerTitle}>Subcategoría...</Text>
           <View style={{ flex: 1 }} />
           <Ionicons name="search" size={28} color="black" />
         </View>
@@ -124,6 +124,31 @@ const CategoryDetailsScreen = () => {
 
   // Caso 2: Solo se ha seleccionado la categoría principal
   // Los productos se agrupan y se muestran en secciones con scroll horizontal
+  if (categoryId)
+    if (products.length === 0) {
+      return (
+        <View style={styles.container}>
+          <View style={styles.topHeader}>
+            <TouchableOpacity onPress={() => router.back()}>
+              <Ionicons name="arrow-back" size={28} color="black" />
+            </TouchableOpacity>
+            <Text style={styles.headerTitle}>Categoría</Text>
+            <View style={{ flex: 1 }} />
+            <Ionicons name="search" size={28} color="black" />
+          </View>
+          <View style={styles.emptyContainer}>
+            <Text style={styles.emptyText}>No hay productos para mostrar.</Text>
+            <TouchableOpacity
+              onPress={refreshCategory}
+              style={styles.refreshButton}
+            >
+              <Text style={styles.refreshButtonText}>Reintentar</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      );
+    }
+
   const groupedProducts: Record<string, Product[]> = products.reduce(
     (acc, product) => {
       const subcatName = product.subcategory.name;
@@ -165,7 +190,7 @@ const CategoryDetailsScreen = () => {
         <TouchableOpacity onPress={() => router.back()}>
           <Ionicons name="arrow-back" size={28} color="black" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Categoría</Text>
+        <Text style={styles.headerTitle}>Pasillo</Text>
         <View style={{ flex: 1 }} />
         <Ionicons name="search" size={28} color="black" />
       </View>
@@ -183,7 +208,8 @@ const CategoryDetailsScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#f5f5f5" },
+  container: { flex: 1, backgroundColor: "#ffffff" },
+  // container: { flex: 1, backgroundColor: "#f5f5f5" },
   loadingContainer: { flex: 1, justifyContent: "center", alignItems: "center" },
   errorContainer: {
     flex: 1,
