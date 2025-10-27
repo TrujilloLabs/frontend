@@ -16,7 +16,7 @@ export class AxiosAdapter implements HttpAdapter {
       // Aquí podrías inyectar el token
       // const token = await getToken();
       const token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMGNkYWEzNy1lNjYwLTQ3MmItYTczMy1hMWZkNjFhZDhjNzIiLCJlbWFpbCI6IkdyZXlzb25fR2lzbGFzb243NEBleGFtcGxlLm5ldCIsInJvbGUiOiJhZG1pbl90aWVuZGEiLCJzdG9yZV9pZCI6IjlmZTYzYzJkLTE3MjEtNDQxNC05Yjg4LWZjNTcxMzhjZDgwMyIsImlhdCI6MTc2MTUxNjIyNywiZXhwIjoxNzYxNjAyNjI3fQ.ZpoqEQfsJZQxqOtEpq9OT1msH-bVrhiox3EATcMeHTM";
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMGNkYWEzNy1lNjYwLTQ3MmItYTczMy1hMWZkNjFhZDhjNzIiLCJlbWFpbCI6IkdyZXlzb25fR2lzbGFzb243NEBleGFtcGxlLm5ldCIsInJvbGUiOiJhZG1pbl90aWVuZGEiLCJzdG9yZV9pZCI6IjlmZTYzYzJkLTE3MjEtNDQxNC05Yjg4LWZjNTcxMzhjZDgwMyIsImlhdCI6MTc2MTYwODY1MiwiZXhwIjoxNzYxNjk1MDUyfQ.2W_hgtkfvocUiM0Yg1DtabUSwId2446qadjMxVf2dMU";
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }
