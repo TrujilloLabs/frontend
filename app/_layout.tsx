@@ -2,6 +2,7 @@ import { useFonts } from "expo-font";
 import * as NavigationBar from "expo-navigation-bar";
 import { SplashScreen, Stack } from "expo-router";
 import React from "react";
+import { AuthProvider } from "../contexts/AuthContext";
 import "./global.css";
 
 SplashScreen.preventAutoHideAsync();
@@ -50,12 +51,13 @@ const RootLayout = () => {
   }
 
   return (
-    <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Splash" />
-      <Stack.Screen name="(tabs)" />
-      {/* <Stack.Screen name="index" /> */}
-    </Stack>
-    // return <Slot />;
+    <AuthProvider>
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Splash" />
+        <Stack.Screen name="auth" />
+        <Stack.Screen name="(tabs)" />
+      </Stack>
+    </AuthProvider>
   );
 };
 

@@ -1,46 +1,20 @@
 import { Redirect } from "expo-router";
 import React from "react";
-// import { useRouter } from "expo-router";
-// import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { View, ActivityIndicator } from "react-native";
+import { useAuth } from "../contexts/AuthContext";
 
 const App = () => {
-  return <Redirect href="/home/Index" />;
-  // <SafeAreaView className="flex-1 items-center justify-center bg-white">
-  //   <View className="mt-5 mx-2.5">
-  //     <Text className="text-3xl text-secondary-200 font-work-black">
-  //       Hola mundo!
-  //     </Text>
-  //     <Text
-  //       className="text-3xl text-tertiary"
-  //       style={{ fontFamily: "WorkSans-Black" }}
-  //     >
-  //       Diego Trujillo
-  //     </Text>
+  const { isAuthenticated, isLoading } = useAuth();
 
-  //     <Link href="/products/ProductScreen">Productos</Link>
-  //     <Text
-  //       className="text-3xl text-tertiary"
-  //       style={{ fontFamily: "WorkSans-Black" }}
-  //     >
-  //       Diego Trujillo
-  //     </Text>
-  //     <Text
-  //       className="text-3xl text-tertiary"
-  //       style={{ fontFamily: "WorkSans-Black" }}
-  //     >
-  //       Diego Trujillo
-  //     </Text>
+  if (isLoading) {
+    return (
+      <View className="flex-1 justify-center items-center bg-white">
+        <ActivityIndicator size="large" color="#3B82F6" />
+      </View>
+    );
+  }
 
-  //     <Pressable
-  //       onPress={() => router.push("/products/ProductScreen")}
-  //       className="bg-primary px-6 py-3 rounded-lg active:opacity-80"
-  //     >
-  //       <Text className="text-white font-bold text-lg">Presióname</Text>
-  //     </Pressable>
-  //   </View>
-  // </SafeAreaView>
-  // <AppNavigator />
-  // );
+  return <Redirect href={isAuthenticated ? "/home/Index" : "/auth/login"} />;
 };
 
 export default App;

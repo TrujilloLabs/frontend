@@ -1,10 +1,12 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
+import { AuthGuard } from "../../components/auth/AuthGuard";
 
 export default function TabsLayout() {
   return (
-    <Tabs
-      screenOptions={{
+    <AuthGuard>
+      <Tabs
+        screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: "#e74423",
         tabBarInactiveTintColor: "gray",
@@ -62,6 +64,7 @@ export default function TabsLayout() {
           )
         }}
       />
-    </Tabs>
+      </Tabs>
+    </AuthGuard>
   );
 }
