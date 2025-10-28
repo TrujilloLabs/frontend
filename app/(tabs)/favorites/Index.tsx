@@ -1,15 +1,32 @@
-import React from "react";
-import { Text, View } from "react-native";
+import React from 'react';
+import { Text, View, StyleSheet } from 'react-native';
 
 const FavoriteScreen = () => {
   return (
-    <View className="flex-1 items-center justify-center bg-white">
-      <Text className="text-2xl font-bold">Favoritos</Text>
-      <Text className="text-gray-600 mt-2">
-        Aquí van los favortos del cliente TrujiStudios
+    <View style={styles.container}>
+      <Text style={styles.title}>Favoritos</Text>
+      <Text style={styles.subtitle}>
+        Aquí van los favoritos del cliente
       </Text>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  subtitle: {
+    color: '#6b7280',
+    marginTop: 8,
+  },
+});
 
 export default FavoriteScreen;

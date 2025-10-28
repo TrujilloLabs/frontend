@@ -3,7 +3,11 @@ import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet } from 'reac
 import { useAuth } from '../../contexts/AuthContext';
 import { router } from 'expo-router';
 
-export const LoginForm: React.FC = () => {
+interface LoginFormProps {
+  storeId?: string;
+}
+
+export const LoginForm: React.FC<LoginFormProps> = ({ storeId }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -19,7 +23,7 @@ export const LoginForm: React.FC = () => {
     setIsLoading(true);
     try {
       console.log('Calling login function...');
-      await login({ email, password });
+      await login({ email, password, storeId });
       console.log('Login successful, navigating...');
       router.replace('/(tabs)/home/Index');
     } catch (error) {

@@ -44,30 +44,18 @@ export const authService = {
   },
 
   register: async (data: RegisterRequest): Promise<AuthResponse> => {
-    console.log('Sending register request to:', `${API_BASE_URL}/auth/register`);
-    console.log('Data:', data);
+    const userData = {
+      name: `${data.firstName} ${data.lastName}`,
+      email: data.email,
+      password: data.password,
+      store_id: data.storeId
+    };
     try {
-      const response = await authApi.post('/auth/register', data);
-      console.log('Register response:', response.data);
+      const response = await authApi.post('/users', userData);
+
       
-      // Decodificar JWT para extraer información del usuario
-      const token = response.data.access_token;
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      
-      const user = {
-        id: payload.sub,
-        email: payload.email,
-        firstName: data.firstName,
-        lastName: data.lastName,
-        role: payload.role,
-        store_id: payload.store_id,
-        isActive: true
-      };
-      
-      return {
-        access_token: token,
-        user
-      };
+      // Después del registro, hacer login automático
+      return await authService.login({ email: data.email, password: data.password, storeId: data.storeId });
     } catch (error) {
       console.error('Register error:', error.response?.data || error.message);
       throw error;

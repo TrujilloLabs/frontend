@@ -1,6 +1,7 @@
 export interface LoginRequest {
   email: string;
   password: string;
+  storeId?: string;
 }
 
 export interface RegisterRequest {
@@ -8,6 +9,7 @@ export interface RegisterRequest {
   password: string;
   firstName: string;
   lastName: string;
+  storeId?: string;
 }
 
 export interface AuthResponse {

@@ -55,6 +55,8 @@ const RootLayout = () => {
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Splash" />
         <Stack.Screen name="auth" />
+        <Stack.Screen name="store" />
+        <Stack.Screen name="test-deeplink" />
         <Stack.Screen name="(tabs)" />
       </Stack>
     </AuthProvider>

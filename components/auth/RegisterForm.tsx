@@ -3,7 +3,11 @@ import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet } from 'reac
 import { useAuth } from '../../contexts/AuthContext';
 import { router } from 'expo-router';
 
-export const RegisterForm: React.FC = () => {
+interface RegisterFormProps {
+  storeId?: string;
+}
+
+export const RegisterForm: React.FC<RegisterFormProps> = ({ storeId }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -19,7 +23,7 @@ export const RegisterForm: React.FC = () => {
 
     setIsLoading(true);
     try {
-      await register({ email, password, firstName, lastName });
+      await register({ email, password, firstName, lastName, storeId });
       router.replace('/(tabs)/home/Index');
     } catch (error) {
       Alert.alert('Error', 'Error al crear la cuenta');

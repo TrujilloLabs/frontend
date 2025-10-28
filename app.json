@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "frontend",
+    "scheme": "miapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -38,6 +38,31 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "linking": {
+      "prefixes": ["miapp://"],
+      "config": {
+        "screens": {
+          "auth": {
+            "screens": {
+              "[storeId]": {
+                "screens": {
+                  "login": "auth/:storeId"
+                }
+              }
+            }
+          },
+          "store": {
+            "screens": {
+              "[storeId]": {
+                "screens": {
+                  "index": "store/:storeId"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

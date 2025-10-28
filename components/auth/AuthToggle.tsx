@@ -3,7 +3,11 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { LoginForm } from './LoginForm';
 import { RegisterForm } from './RegisterForm';
 
-export const AuthToggle: React.FC = () => {
+interface AuthToggleProps {
+  storeId?: string;
+}
+
+export const AuthToggle: React.FC<AuthToggleProps> = ({ storeId }) => {
   const [isLogin, setIsLogin] = useState(true);
 
   return (
@@ -30,7 +34,7 @@ export const AuthToggle: React.FC = () => {
         </View>
       </View>
       
-      {isLogin ? <LoginForm /> : <RegisterForm />}
+      {isLogin ? <LoginForm storeId={storeId} /> : <RegisterForm storeId={storeId} />}
     </View>
   );
 };
