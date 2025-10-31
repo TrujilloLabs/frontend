@@ -1,8 +1,7 @@
-// Configuración de la tienda
-// Este archivo debe ser modificado para cada tienda antes de compilar la app
+// Configuración de la tienda usando variables de entorno
 
 export const STORE_CONFIG = {
-  STORE_ID: '9fe63c2d-1721-4414-9b88-fc57138cd803', // ID de la tienda
-  STORE_NAME: 'Mi Tienda', // Nombre de la tienda
-  STORE_LOGO: 'https://example.com/logo.png', // Logo de la tienda
+  STORE_ID: process.env.EXPO_PUBLIC_STORE_ID || '',
+  STORE_NAME: process.env.EXPO_PUBLIC_STORE_NAME || 'Mi Tienda',
+  STORE_LOGO: process.env.EXPO_PUBLIC_STORE_LOGO || '',
 };
