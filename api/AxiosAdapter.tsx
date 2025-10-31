@@ -1,5 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 import { HttpAdapter } from "./HttpAdapter";
+import { getToken } from "../storage/tokenStorage";
 
 export class AxiosAdapter implements HttpAdapter {
   private instance: AxiosInstance;
@@ -13,10 +14,10 @@ export class AxiosAdapter implements HttpAdapter {
 
     // Interceptores
     this.instance.interceptors.request.use(async (config) => {
-      // Aquí podrías inyectar el token
-      // const token = await getToken();
-      const token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMGNkYWEzNy1lNjYwLTQ3MmItYTczMy1hMWZkNjFhZDhjNzIiLCJlbWFpbCI6IkdyZXlzb25fR2lzbGFzb243NEBleGFtcGxlLm5ldCIsInJvbGUiOiJhZG1pbl90aWVuZGEiLCJzdG9yZV9pZCI6IjlmZTYzYzJkLTE3MjEtNDQxNC05Yjg4LWZjNTcxMzhjZDgwMyIsImlhdCI6MTc2MTg3MzA4OCwiZXhwIjoxNzYxOTU5NDg4fQ.Fuxt9qgSGDDvxnLnQlNGAYc7eIVxEaCLQPswCtfeohU";
+      const token = await getToken();
+      //const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMGNkYWEzNy1lNjYwLTQ3MmItYTczMy1hMWZkNjFhZDhjNzIiLCJlbWFpbCI6IkdyZXlzb25fR2lzbGFzb243NEBleGFtcGxlLm5ldCIsInJvbGUiOiJhZG1pbl90aWVuZGEiLCJzdG9yZV9pZCI6IjlmZTYzYzJkLTE3MjEtNDQxNC05Yjg4LWZjNTcxMzhjZDgwMyIsImlhdCI6MTc2MTg3MzA4OCwiZXhwIjoxNzYxOTU5NDg4fQ.Fuxt9qgSGDDvxnLnQlNGAYc7eIVxEaCLQPswCtfeohU";
+      console.log('Making request to:', config.url);
+      console.log('Token used:', token);
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }
@@ -44,3 +45,6 @@ export class AxiosAdapter implements HttpAdapter {
     return data;
   }
 }
+
+
+    //  const token ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMGNkYWEzNy1lNjYwLTQ3MmItYTczMy1hMWZkNjFhZDhjNzIiLCJlbWFpbCI6IkdyZXlzb25fR2lzbGFzb243NEBleGFtcGxlLm5ldCIsInJvbGUiOiJhZG1pbl90aWVuZGEiLCJzdG9yZV9pZCI6IjlmZTYzYzJkLTE3MjEtNDQxNC05Yjg4LWZjNTcxMzhjZDgwMyIsImlhdCI6MTc2MTg3MzA4OCwiZXhwIjoxNzYxOTU5NDg4fQ.Fuxt9qgSGDDvxnLnQlNGAYc7eIVxEaCLQPswCtfeohU";

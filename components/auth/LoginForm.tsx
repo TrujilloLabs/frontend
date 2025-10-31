@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet } from 'reac
 import { useAuth } from '../../contexts/AuthContext';
 import { router } from 'expo-router';
 
+
 interface LoginFormProps {
   storeId?: string;
 }
@@ -25,6 +26,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ storeId }) => {
       console.log('Calling login function...');
       await login({ email, password, storeId });
       console.log('Login successful, navigating...');
+
       router.replace('/(tabs)/home/Index');
     } catch (error) {
       console.error('Login failed:', error);
